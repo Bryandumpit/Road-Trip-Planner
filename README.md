@@ -9,7 +9,7 @@ We will establish a search bar or form for the user to input their desired optio
 
 ## The Journey
 After the APIs and functionality base was selected a 1st draft wireframe sketch was made (as seen below)
-![First draft of wireframe sketch](./Screenshots/Wirefram-Sketch.png)
+![First draft of wireframe sketch](./Screenshots/Wireframe-Sketch.png)
 
 ## Made with
 * HTML
