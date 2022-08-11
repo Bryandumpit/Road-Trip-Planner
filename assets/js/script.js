@@ -1,12 +1,16 @@
-//variables:
+//------------------DEFINE VARIABLES--------------------------------------:
 var fetchButtonEl = document.querySelector("#fetch-btn");
 
-var originInput = document.querySelector("#origin-input").value;
+var originInputEl = document.querySelector("#origin-input");
 
-var destinationInput = document.querySelector("#destination-input").value;
+var destinationInput = document.querySelector("#destination-input");
 
-//Hotels com API api through rapidapi.com
-//searches nearby hotels relative to the query(geoposition: latitude and longitude)
+var checkInEl = document.querySelector("#checkin-input");
+
+var checkOutEl = document.querySelector("#checkout-input");
+
+    //Hotels com API api through rapidapi.com
+    //searches nearby hotels relative to the query(geoposition: latitude and longitude)
 const optionsHotel = {
 	method: 'GET',
 	headers: {
@@ -15,28 +19,77 @@ const optionsHotel = {
 	}
 };
 
+    //google maps geocoding api through rapidapi.com
+    //returns lat lon geopositioning based on string (address) provided by user
+const optionsGeoPos = {
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': 'c20bfb4b26msh90013965b57ab59p153be0jsn7a6405d62cf9',
+		'X-RapidAPI-Host': 'google-maps-geocoding.p.rapidapi.com'
+	}
+};
 
-//functions:
+
+
+//-----------------DEFINE FUNCTIONS----------------------:
 //user input (origin, destination and time departure-default: current time) is passed through this function; data repackaged and sent to fetch function
-var convertStringGeoPos = function(){
+var convertOriginGeoPos = function(){
     console.log('this will convert user input destination string to latitude and longitude')
+    var originInput = originInputEl.value.trim();
     console.log(originInput);
-    console.log(destinationInput);
-}
+    var geoPosUrl= 'https://google-maps-geocoding.p.rapidapi.com/geocode/json?address=' + originInput + '&language=en'
+    console.log(geoPosUrl);
+    fetch(geoPosUrl, optionsGeoPos)
+        .then(function(response){
+            if (response.ok){
+                response.json().then(function(data){
+                    console.log(data)
+                    fetchHotelsFunction(data);
+                })
+            }
+        })
+        .catch(function(error){
+            alert("unable to connect to google maps");//switch to modal
+        });
+};
 
 //search nearby hotels by lat and lon
-var fetchHotelsFunction = function(){
+var fetchHotelsFunction = function(geoPos){
     console.log('this fetches list of nearby hotels by lat and lon')
-    fetch('https://hotels-com-provider.p.rapidapi.com/v1/hotels/nearby?latitude=51.509865&currency=USD&longitude=-0.118092&checkout_date=2022-03-27&sort_order=STAR_RATING_HIGHEST_FIRST&checkin_date=2022-03-26&adults_number=1&locale=en_US&guest_rating_min=4&star_rating_ids=3%2C4%2C5&children_ages=4%2C0%2C15&page_number=1&price_min=10&accommodation_ids=20%2C8%2C15%2C5%2C1&theme_ids=14%2C27%2C25&price_max=500&amenity_ids=527%2C2063', optionsHotel)
-        .then(response => response.json())
-        .then(response => console.log(response))
+    console.log(geoPos)//use lat and lon to define hotelApiUrl
+    var checkin = checkInEl.value;
+    var checkout = checkOutEl.value;
+    var originGeoPos = geoPos.results[0].geometry.location;
+    var originLat = originGeoPos.lat;
+    var originLong = originGeoPos.lng;
+    console.log(originGeoPos);
+    console.log(originLat);
+    console.log(originLong);
+    
+    var hotelApiUrl = 'https://hotels-com-provider.p.rapidapi.com/v1/hotels/nearby?latitude='+originLat+'&currency=USD&longitude='+originLong+'&checkout_date='+checkout+'&sort_order=STAR_RATING_HIGHEST_FIRST&checkin_date='+checkin+'&adults_number=1&locale=en_US&guest_rating_min=4&star_rating_ids=3%2C4%2C5&children_ages=4%2C0%2C15&page_number=1&price_min=10&accommodation_ids=20%2C8%2C15%2C5%2C1&theme_ids=14%2C27%2C25&price_max=500&amenity_ids=527%2C2063'
+    fetch(hotelApiUrl, optionsHotel)
+        .then(function(response){
+            response.json().then(function(data){
+                console.log(data);
+                hotelListHandler(data);
+            })})
+        
         .catch(err => console.error(err));
 
         //output data to create DOM elements and user can pick a hotel
 };
 
 //need function to take user input(picked hotel), take address and get geoposition
+var hotelListHandler = function(hotelList){
+    console.log(hotelList,"create Elements based on hotels listed");
+    var hotelResults = hotelList.searchResults.results;
+    console.log(hotelResults);
+    for(var i = 0; i < hotelResults.length; i++){
+        console.log(hotelResults[i]);//this will list all hotels found and other properties
+    }
 
+    fetchDirectionsFunction();
+}
 //once user picks a hotel,retrieves directions to get to destination
 var fetchDirectionsFunction = function(){
     console.log('this will fetch from directions api')
@@ -53,6 +106,6 @@ var fetchDirectionsFunction = function(){
 // 	.then(response => console.log(response))
 // 	.catch(err => console.error(err));
 
-//addEventListeners:
+//----------------------addEventListeners-------------------------:
 
-fetchButtonEl.addEventListener("click",fetchHotelsFunction)
+fetchButtonEl.addEventListener("click",convertOriginGeoPos);
