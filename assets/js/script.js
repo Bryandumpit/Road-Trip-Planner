@@ -13,6 +13,9 @@ var hotelContainerEl = document.querySelector("#hotel-results-container")
 
 var hotelResults ='';
 
+var originLat = '';
+var originLong = '';
+
 
 
     //Hotels com API api through rapidapi.com
@@ -66,8 +69,8 @@ var fetchHotelsFunction = function(geoPos){
     var checkin = checkInEl.value;
     var checkout = checkOutEl.value;
     var originGeoPos = geoPos.results[0].geometry.location;
-    var originLat = originGeoPos.lat;
-    var originLong = originGeoPos.lng;
+    originLat = originGeoPos.lat;
+    originLong = originGeoPos.lng;
     console.log(originGeoPos);
     console.log(originLat);
     console.log(originLong);
@@ -109,17 +112,33 @@ var fetchDirectionsFunction = function(event){
     console.log(hotel);
     console.log(hotelResults);//data captured from hotelListHandler function
     console.log('this will fetch from directions api')
+    
 
 
 }
 
 function initMap(){
+    const directionsRenderer = new google.maps.directionsRenderer();
+    const directionsService = new google.maps.directionsService();
     var mapOptions ={ 
-        center:{lat:43.6532,lng:-79.3832},
-        zoom:8}
+        center:{lat:originLat,lng: originLong},
+        zoom:14}
     console.log(google)
-    map = new google.maps.Map(document.getElementById('map'), mapOptions)
+
+    directionsRenderer.setMap(map);
+
+    
 }
+
+function calculateAndDisplayRoute(directionsService,directionsRenderer){
+    const selectedMode = document.getElementById("mode").value;
+
+    directionsService.route({
+        origin:document.getElementbyId
+    })
+}
+
+
 
 //google maps api
 //not yet working
