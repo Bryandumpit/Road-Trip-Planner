@@ -17,9 +17,11 @@ const optionsHotel = {
 
 
 //functions:
-
+//user input (origin, destination and time departure-default: current time) is passed through this function; data repackaged and sent to fetch function
 var convertStringGeoPos = function(){
     console.log('this will convert user input destination string to latitude and longitude')
+    console.log(originInput);
+    console.log(destinationInput);
 }
 
 //search nearby hotels by lat and lon
@@ -29,16 +31,16 @@ var fetchHotelsFunction = function(){
         .then(response => response.json())
         .then(response => console.log(response))
         .catch(err => console.error(err));
+
+        //output data to create DOM elements and user can pick a hotel
 };
 
-//retrieves directions to get to destination
+//need function to take user input(picked hotel), take address and get geoposition
+
+//once user picks a hotel,retrieves directions to get to destination
 var fetchDirectionsFunction = function(){
     console.log('this will fetch from directions api')
 }
-
-   
-    
-    
 
 //google maps api
 //not yet working
