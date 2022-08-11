@@ -115,7 +115,7 @@ var fetchDirectionsFunction = function(event){
 
 function initMap(){
     var mapOptions ={ 
-        center:{lat:43.6532,lng:79.3832},
+        center:{lat:43.6532,lng:-79.3832},
         zoom:8}
     console.log(google)
     map = new google.maps.Map(document.getElementById('map'), mapOptions)
