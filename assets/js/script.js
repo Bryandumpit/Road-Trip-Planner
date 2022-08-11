@@ -121,16 +121,15 @@ function initMap(){
     map = new google.maps.Map(document.getElementById('map'), mapOptions)
 }
 
-//google maps api
-//not yet working
+var addMarker = function(location){
+    const marker = new google.maps.Marker({
+        position:location,
+        map:map,
+        icon:"./assets/images/"
+    })
+}
 
-// var googleMapsApiKey = 'AIzaSyDfINFfuRcSYAh-2ukV1n032OjpcZUXNJw';
 
-// var googleDirectionsUrl='https://maps.googleapis.com/maps/api/directions/json?origin=Disneyland&destination=Universal+Studios+Hollywood&key=AIzaSyDfINFfuRcSYAh-2ukV1n032OjpcZUXNJw'
-// fetch(googleDirectionsUrl)
-// 	.then(response => response.json())
-// 	.then(response => console.log(response))
-// 	.catch(err => console.error(err));
 
 //----------------------addEventListeners-------------------------:
 
