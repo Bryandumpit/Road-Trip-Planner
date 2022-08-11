@@ -125,7 +125,7 @@ var addMarker = function(location){
     const marker = new google.maps.Marker({
         position:location,
         map:map,
-        icon:"./assets/images/"
+        icon:""
     })
 }
 
