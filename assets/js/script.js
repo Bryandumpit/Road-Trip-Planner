@@ -9,6 +9,12 @@ var checkInEl = document.querySelector("#checkin-input");
 
 var checkOutEl = document.querySelector("#checkout-input");
 
+var hotelContainerEl = document.querySelector("#hotel-results-container")
+
+var hotelResults ='';
+
+
+
     //Hotels com API api through rapidapi.com
     //searches nearby hotels relative to the query(geoposition: latitude and longitude)
 const optionsHotel = {
@@ -82,17 +88,37 @@ var fetchHotelsFunction = function(geoPos){
 //need function to take user input(picked hotel), take address and get geoposition
 var hotelListHandler = function(hotelList){
     console.log(hotelList,"create Elements based on hotels listed");
-    var hotelResults = hotelList.searchResults.results;
+    hotelResults = hotelList.searchResults.results;
     console.log(hotelResults);
     for(var i = 0; i < hotelResults.length; i++){
         console.log(hotelResults[i]);//this will list all hotels found and other properties
+
+        var hotelResultsEl = document.createElement("button")
+        hotelResultsEl.textContent= hotelResults[i].name;
+        hotelResultsEl.setAttribute("id",hotelResults[i].name);
+
+        hotelContainerEl.append(hotelResultsEl)
+
     }
 
-    fetchDirectionsFunction();
+    
 }
 //once user picks a hotel,retrieves directions to get to destination
-var fetchDirectionsFunction = function(){
+var fetchDirectionsFunction = function(event){
+    var hotel = event.target
+    console.log(hotel);
+    console.log(hotelResults);//data captured from hotelListHandler function
     console.log('this will fetch from directions api')
+
+
+}
+
+function initMap(){
+    var mapOptions ={ 
+        center:{lat:43.6532,lng:79.3832},
+        zoom:8}
+    console.log(google)
+    map = new google.maps.Map(document.getElementById('map'), mapOptions)
 }
 
 //google maps api
@@ -108,4 +134,6 @@ var fetchDirectionsFunction = function(){
 
 //----------------------addEventListeners-------------------------:
 
+hotelContainerEl.addEventListener("click", fetchDirectionsFunction)
 fetchButtonEl.addEventListener("click",convertOriginGeoPos);
+
