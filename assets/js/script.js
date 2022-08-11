@@ -1,18 +1,44 @@
-//Travel advisor api through rapidapi.com
-//searches nearby hotels relative to the query(geoposition: latitude and longitude)
+//variables:
+var fetchButtonEl = document.querySelector("#fetch-btn");
 
-const options = {
+var originInput = document.querySelector("#origin-input").value;
+
+var destinationInput = document.querySelector("#destination-input").value;
+
+//Hotels com API api through rapidapi.com
+//searches nearby hotels relative to the query(geoposition: latitude and longitude)
+const optionsHotel = {
 	method: 'GET',
 	headers: {
-		'X-RapidAPI-Key': '9f86138359msh4f6cbfb84ac53aap1ab4ffjsn0cf02957ece8',
-		'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com'
+		'X-RapidAPI-Key': 'c20bfb4b26msh90013965b57ab59p153be0jsn7a6405d62cf9',
+		'X-RapidAPI-Host': 'hotels-com-provider.p.rapidapi.com'
 	}
 };
 
-fetch('https://travel-advisor.p.rapidapi.com/locations/v2/auto-complete?query=eiffel%20tower&lang=en_US&units=km', options)
-	.then(response => response.json())
-	.then(response => console.log(response))
-	.catch(err => console.error(err));
+
+//functions:
+
+var convertStringGeoPos = function(){
+    console.log('this will convert user input destination string to latitude and longitude')
+}
+
+//search nearby hotels by lat and lon
+var fetchHotelsFunction = function(){
+    console.log('this fetches list of nearby hotels by lat and lon')
+    fetch('https://hotels-com-provider.p.rapidapi.com/v1/hotels/nearby?latitude=51.509865&currency=USD&longitude=-0.118092&checkout_date=2022-03-27&sort_order=STAR_RATING_HIGHEST_FIRST&checkin_date=2022-03-26&adults_number=1&locale=en_US&guest_rating_min=4&star_rating_ids=3%2C4%2C5&children_ages=4%2C0%2C15&page_number=1&price_min=10&accommodation_ids=20%2C8%2C15%2C5%2C1&theme_ids=14%2C27%2C25&price_max=500&amenity_ids=527%2C2063', optionsHotel)
+        .then(response => response.json())
+        .then(response => console.log(response))
+        .catch(err => console.error(err));
+};
+
+//retrieves directions to get to destination
+var fetchDirectionsFunction = function(){
+    console.log('this will fetch from directions api')
+}
+
+   
+    
+    
 
 //google maps api
 //not yet working
@@ -24,3 +50,7 @@ fetch('https://travel-advisor.p.rapidapi.com/locations/v2/auto-complete?query=ei
 // 	.then(response => response.json())
 // 	.then(response => console.log(response))
 // 	.catch(err => console.error(err));
+
+//addEventListeners:
+
+fetchButtonEl.addEventListener("click",fetchHotelsFunction)
