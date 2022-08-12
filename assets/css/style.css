@@ -1,4 +1,59 @@
+:root {
+
+}
+
 #map{
     height:700px;
     width:500px;
 }
+
+body {
+    font-family: "Open Sans", sans-serif;
+  }
+/* <header class="container-fluid text-center text-white bg-warning p-2 justify-space-between align-middle"> - if using bootstrap*/
+header {
+    text-align: center;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* if there will be a search icon bg-primary or bg-info whichever will suite best for the theme of the website*/
+.btn {
+    background-color: rgb(41, 185, 225)
+}
+/* btn css may change if we have bootstrap incorporated */
+
+/* search history input */
+/* make sure to readonly the input make the value as true so it won't be edited */
+/* type="text" */
+/* value = "depend on search hotel history */
+.search-history {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: row;
+}
+
+/* container-fluid */
+/* column */
+/* class = "row" for food or hotel */
+h3 /*(whatever class or id we have) */ {
+    margin: 3px;
+    display: flex;
+    justify-content: space-between;
+    flex: row;
+}
+
+/* h3 child */
+/* fix margin, padding, display-flex */
+
+/* @media screen (max-width: 500px) {
+    .btn {
+      font-size: 0.8rem;
+    }
+  } */
+
+  /* if we are going to use bootstrap no need for the @media */
+
