@@ -198,6 +198,7 @@ var initTravelMap = function (origin,hotel){
     const map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
     directionsRenderer.setMap(map);//renders map
+    document.getElementById('directionsPanel').replaceChildren();
     directionsRenderer.setPanel(document.getElementById('directionsPanel'));//provides steps
     calculateAndDisplayRoute (directionsService,directionsRenderer,origin, hotelLatLng);
 
