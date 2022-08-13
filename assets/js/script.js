@@ -95,16 +95,22 @@ var hotelListHandler = function(hotelList){
     console.log(hotelList,"create Elements based on hotels listed");
     hotelResults = hotelList.searchResults.results;
     console.log(hotelResults);
+
+    hotelContainerEl.replaceChildren();
+      
     for(var i = 0; i < hotelResults.length; i++){
         console.log(hotelResults[i]);//this will list all hotels found and other properties
 
         var hotelResultsEl = document.createElement("button")
         hotelResultsEl.textContent= hotelResults[i].name;
         hotelResultsEl.setAttribute("id",hotelResults[i].name);
+        hotelResultsEl.setAttribute("data-id", 'hotel-button')
 
         hotelContainerEl.append(hotelResultsEl)
 
     }
+    
+    
 
     
 }
@@ -117,26 +123,28 @@ var selectedHotel = function(event){
     console.log(hotel.textContent)
 
     var index ='';
-    
-    for (var i = 0; i<hotelResults.length; i++) {
-        if (hotelResults[i].name === hotel.textContent){
-            console.log(hotelResults[i].name);
-            index = i;
-            break
-        } else if (hotelResults[i].name !== hotel.textContent){
-            continue
+    if (event.target.getAttribute("data-id")==='hotel-button'){
+        for (var i = 0; i<hotelResults.length; i++) {
+            if (hotelResults[i].name === hotel.textContent){
+                console.log(hotelResults[i].name);
+                index = i;
+                break
+            } else if (hotelResults[i].name !== hotel.textContent){
+                continue
+            }
         }
-    }
-
-    console.log(index);
     
-
-    var hotelSelected = hotelResults[index];
-
-   
-    console.log(hotelSelected);
-
-    convertOriginGeoPos(hotelSelected);
+        console.log(index);
+        
+    
+        var hotelSelected = hotelResults[index];
+    
+       
+        console.log(hotelSelected);
+    
+        convertOriginGeoPos(hotelSelected);
+    }
+    
 
     
 
@@ -177,7 +185,7 @@ function initMap (){
             zoom:5}
         const map = new google.maps.Map(document.getElementById('map'), mapOptions);
     
-        directionsRenderer.setMap(map);
+        
 
 }
 //generates zoomed map, draws route and displays direction steps
