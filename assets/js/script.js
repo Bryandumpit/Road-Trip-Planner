@@ -97,18 +97,21 @@ var hotelListHandler = function(hotelList){
     console.log(hotelResults);
 
     hotelContainerEl.replaceChildren();
-      
-    for(var i = 0; i < hotelResults.length; i++){
-        console.log(hotelResults[i]);//this will list all hotels found and other properties
-
-        var hotelResultsEl = document.createElement("button")
-        hotelResultsEl.textContent= hotelResults[i].name;
-        hotelResultsEl.setAttribute("id",hotelResults[i].name);
-        hotelResultsEl.setAttribute("data-id", 'hotel-button')
-
-        hotelContainerEl.append(hotelResultsEl)
-
+    if (hotelResults.length!==0){
+        for(var i = 0; i < hotelResults.length; i++){
+            console.log(hotelResults[i]);//this will list all hotels found and other properties
+    
+            var hotelResultsEl = document.createElement("button")
+            hotelResultsEl.textContent= hotelResults[i].name;
+            hotelResultsEl.setAttribute("id",hotelResults[i].name);
+            hotelResultsEl.setAttribute("data-id", 'hotel-button')
+    
+            hotelContainerEl.append(hotelResultsEl)
+        }
+    } else{
+        window.alert('no hotels found');
     }
+    
     
     
 
