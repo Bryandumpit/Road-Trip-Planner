@@ -90,7 +90,7 @@ var fetchHotelsFunction = function(destinationGeoPos){
         //output data to create DOM elements and user can pick a hotel
 };
 
-//need function to take user input(picked hotel), take address and get geoposition
+//creates interactive element (currently buttons) for nearby hotels identified
 var hotelListHandler = function(hotelList){
     console.log(hotelList,"create Elements based on hotels listed");
     hotelResults = hotelList.searchResults.results;
@@ -108,7 +108,7 @@ var hotelListHandler = function(hotelList){
 
     
 }
-//once user picks a hotel,retrieves directions to get to destination
+//once user picks a hotel,identifies which hotel from hotels object was clicked
 var selectedHotel = function(event){
     var hotel = event.target
     console.log(hotel);
@@ -142,7 +142,7 @@ var selectedHotel = function(event){
 
     
 }
-
+//takes origin input from user-filled form and selected hotel data from hotel list generated
 var convertOriginGeoPos = function(hotel){
     console.log('this will convert user input origin string to latitude and longitude')
     
@@ -168,7 +168,7 @@ var convertOriginGeoPos = function(hotel){
 
 
 };
-
+//displays initial map; lets user know map is included
 function initMap (){
 
     var mapOptions ={ 
@@ -180,7 +180,7 @@ function initMap (){
         directionsRenderer.setMap(map);
 
 }
-
+//generates zoomed map, draws route and displays direction steps
 var initTravelMap = function (origin,hotel){
     
     document.getElementById('map').replaceChildren();
@@ -197,8 +197,8 @@ var initTravelMap = function (origin,hotel){
         zoom:14}
     const map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-    directionsRenderer.setMap(map);
-    directionsRenderer.setPanel(document.getElementById('directionsPanel'));
+    directionsRenderer.setMap(map);//renders map
+    directionsRenderer.setPanel(document.getElementById('directionsPanel'));//provides steps
     calculateAndDisplayRoute (directionsService,directionsRenderer,origin, hotelLatLng);
 
 }
@@ -216,27 +216,17 @@ function calculateAndDisplayRoute (directionsService,directionsRenderer,origin,h
     
     var start = new google.maps.LatLng(originLat,originLng);
     var end = new google.maps.LatLng(hotelLat,hotelLng);
-
+    //renders driving route
     directionsService.route({
         origin: start,
         destination: end,
-        travelMode: 'DRIVING',
+        travelMode: 'DRIVING',//default travel mode is driving
     })
     .then((response)=>{
         directionsRenderer.setDirections(response);
     })
     .catch((e)=>window.alert("Direction request has failed"));
 }
-
-// var mapOptions ={ 
-//     center:{lat:43.651070
-//         ,lng:-79.347015},
-//     zoom:14}
-// console.log(google)
-// map = new google.maps.Map(document.getElementById('map'), mapOptions)
-
-
-
 
 //----------------------addEventListeners-------------------------:
 
