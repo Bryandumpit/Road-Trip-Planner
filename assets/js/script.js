@@ -35,6 +35,7 @@ var hotelContainerEl = document.querySelector("#hotel-results-container")
 var hotelResults;
 
 
+
 //-----------------DEFINE FUNCTIONS----------------------:
 //user input (origin, destination and time departure-default: current time) is passed through this function; data repackaged and sent to fetch function
 var convertDestinationGeoPos = function(){
@@ -63,31 +64,7 @@ var convertDestinationGeoPos = function(){
 
 };
 
-var convertOriginGeoPos = function(){
-    console.log('this will convert user input origin string to latitude and longitude')
-    
-    
 
-    var originInput = originInputEl.value.trim();
-    var originGeoPosUrl= 'https://google-maps-geocoding.p.rapidapi.com/geocode/json?address=' + originInput + '&language=en'
-    console.log(originGeoPosUrl);
-    
-    fetch(originGeoPosUrl, optionsGeoPos)
-        .then(function(response){
-            if (response.ok){
-                response.json().then(function(originGeoPos){
-                    console.log(originGeoPos);
-                    
-                })
-            }
-        })
-        .catch(function(error){
-            alert("unable to connect to google maps");//switch to modal
-        });
-    
-
-
-};
 
 //search nearby hotels by lat and lon
 var fetchHotelsFunction = function(destinationGeoPos){
@@ -132,7 +109,7 @@ var hotelListHandler = function(hotelList){
     
 }
 //once user picks a hotel,retrieves directions to get to destination
-var fetchDirectionsFunction = function(event){
+var selectedHotel = function(event){
     var hotel = event.target
     console.log(hotel);
     console.log(hotelResults);//data captured from hotelListHandler function
@@ -156,32 +133,89 @@ var fetchDirectionsFunction = function(event){
 
     var hotelSelected = hotelResults[index];
 
-    var hotelLat = hotelSelected.coordinate.lat
-    var hotelLng = hotelSelected.coordinate.lon
+   
+    console.log(hotelSelected);
 
-    console.log(hotelLat, hotelLng);
+    convertOriginGeoPos(hotelSelected);
 
-    initMap();
+    
+
+    
 }
 
+var convertOriginGeoPos = function(hotel){
+    console.log('this will convert user input origin string to latitude and longitude')
+    
+    console.log(hotel);
+
+    var originInput = originInputEl.value.trim();
+    var originGeoPosUrl= 'https://google-maps-geocoding.p.rapidapi.com/geocode/json?address=' + originInput + '&language=en'
+    console.log(originGeoPosUrl);
+    
+    fetch(originGeoPosUrl, optionsGeoPos)
+        .then(function(response){
+            if (response.ok){
+                response.json().then(function(originGeoPos){
+                    console.log(originGeoPos);
+                    initTravelMap(originGeoPos,hotel);
+                })
+            }
+        })
+        .catch(function(error){
+            alert("unable to connect to google maps");//switch to modal
+        });
+    
+
+
+};
+
 function initMap (){
-    const directionsRenderer = new google.maps.DirectionsRenderer();
-    const directionsService = new google.maps.DirectionsService();
+
     var mapOptions ={ 
-    center:{lat:43.651070
-        ,lng:-79.347015},
+        center:{lat:56.1304
+            ,lng:-106.3468},
+            zoom:5}
+        const map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    
+        directionsRenderer.setMap(map);
+
+}
+
+var initTravelMap = function (origin,hotel){
+    
+    document.getElementById('map').replaceChildren();
+
+    const directionsService = new google.maps.DirectionsService();
+    const directionsRenderer = new google.maps.DirectionsRenderer();
+    
+    var hotelLatLng=hotel;
+    console.log(hotelLatLng);
+
+    var mapOptions ={ 
+    center:{lat:origin.results[0].geometry.location.lat
+        ,lng:origin.results[0].geometry.location.lng},
         zoom:14}
     const map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
     directionsRenderer.setMap(map);
-    calculateAndDisplayRoute (directionsService,directionsRenderer);
+    directionsRenderer.setPanel(document.getElementById('directionsPanel'));
+    calculateAndDisplayRoute (directionsService,directionsRenderer,origin, hotelLatLng);
 
 }
 
-function calculateAndDisplayRoute (directionsService,directionsRenderer) {
+function calculateAndDisplayRoute (directionsService,directionsRenderer,origin,hotelLatLng) {
+
+    var hotelLat = hotelLatLng.coordinate.lat;
+    var hotelLng = hotelLatLng.coordinate.lon;
+    console.log(hotelLat,hotelLng);
+
+    var originLat = origin.results[0].geometry.location.lat;
+    var originLng = origin.results[0].geometry.location.lng;
+
+    console.log(originLat,originLng);
     
-    var start = new google.maps.LatLng(43.5890,-79.6441);
-    var end = new google.maps.LatLng(43.651070,-79.347015);
+    var start = new google.maps.LatLng(originLat,originLng);
+    var end = new google.maps.LatLng(hotelLat,hotelLng);
 
     directionsService.route({
         origin: start,
@@ -202,19 +236,10 @@ function calculateAndDisplayRoute (directionsService,directionsRenderer) {
 // map = new google.maps.Map(document.getElementById('map'), mapOptions)
 
 
-//google maps api
-//not yet working
 
-// var googleMapsApiKey = 'AIzaSyDfINFfuRcSYAh-2ukV1n032OjpcZUXNJw';
-
-// var googleDirectionsUrl='https://maps.googleapis.com/maps/api/directions/json?origin=Disneyland&destination=Universal+Studios+Hollywood&key=AIzaSyDfINFfuRcSYAh-2ukV1n032OjpcZUXNJw'
-// fetch(googleDirectionsUrl)
-// 	.then(response => response.json())
-// 	.then(response => console.log(response))
-// 	.catch(err => console.error(err));
 
 //----------------------addEventListeners-------------------------:
 
-hotelContainerEl.addEventListener("click", fetchDirectionsFunction)
+hotelContainerEl.addEventListener("click", selectedHotel)
 fetchButtonEl.addEventListener("click",convertDestinationGeoPos);
 
