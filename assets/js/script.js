@@ -210,8 +210,8 @@ var convertOriginGeoPos = function(hotel){
                     if (originGeoPos.results.length!==0){
                         initTravelMap(originGeoPos,hotel);
                     } else {
-                        reset();
-                        var modalKey = "no-origin"
+                        originInputEl.value ='';
+                        var modalKey = "no-origin";
                         modalHandler(modalKey);
                     }                   
                 })
