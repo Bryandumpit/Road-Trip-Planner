@@ -189,13 +189,9 @@ var selectedHotel = function(event){
         console.log(hotelSelected);
     
         convertOriginGeoPos(hotelSelected);
-    }
-    
-
-    
-
-    
+    }        
 }
+
 //takes origin input from user-filled form and selected hotel data from hotel list generated
 var convertOriginGeoPos = function(hotel){
     console.log('this will convert user input origin string to latitude and longitude')
