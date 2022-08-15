@@ -5,21 +5,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TestEnvMod07Proj01</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
-    <header>
-
+    <header class="container-fluid text-center text-white bg-info p-2 justify-space-between align-middle">
+        <h1>TEST</h1>
     </header>
+
     <main>
-        <section>
-            <form id="user-input">
-                <input name="origin" placeholder="origin" id="origin-input">
-                <input name="destination" placeholder="destination" id="destination-input">
-                <input name="check-in" placeholder="check in date (yyyy-mm-dd)" id="checkin-input">
-                <input name="check-out" placeholder="checkout date (yyyy-mm-dd)" id="checkout-input">
-            </form>
-            <button id="fetch-btn">fetch</button>
+        <section class="col-lg-4">
+        <form id="user-input">
+        <div class="form-group">
+                <input name="origin" placeholder="origin" id="origin-input" class="form-control">
+                <input name="destination" placeholder="destination" id="destination-input" class="form-control">
+                <input name="check-in" placeholder="check in date (yyyy-mm-dd)" id="checkin-input" class="form-control">
+                <input name="check-out" placeholder="checkout date (yyyy-mm-dd)" id="checkout-input" class="form-control">    
+        </div>
+        </form>
+            <button id="fetch-btn" class=" btn fetch-btn btn-primary m-1 rounded" >fetch</button>
         </section>
         <section>
             <div id="hotel-results-container">
@@ -35,6 +40,8 @@
     <footer>
 
     </footer> 
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfINFfuRcSYAh-2ukV1n032OjpcZUXNJw&callback=initMap">
     </script>
