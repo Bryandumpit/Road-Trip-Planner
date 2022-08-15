@@ -1,4 +1,27 @@
-#map{
-    height:700px;
-    width:500px;
+header {
+    margin-bottom: 5px;
+}
+
+.title {
+    text-align: center;
+}
+
+/* HERO STYLES BEGIN*/
+.hero div {
+    margin-top: 5px;
+}
+
+.hero .input,
+.select {
+    width: auto;
+    margin: 0px 25px;
+}
+
+.hero .button {
+    width: 500px;
+}
+
+#map {
+    height: 700px;
+    width: 500px;
 }
