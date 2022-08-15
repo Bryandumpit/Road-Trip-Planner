@@ -34,34 +34,65 @@ var hotelContainerEl = document.querySelector("#hotel-results-container")
 
 var hotelResults;
 
+var modalTitleEl = document.querySelector("#modal-title")
+
+var modalBodyEl = document.querySelector("#modal-body")
 
 
 //-----------------DEFINE FUNCTIONS----------------------:
 //user input (origin, destination and time departure-default: current time) is passed through this function; data repackaged and sent to fetch function
+var inputValidation = function (){
+    //initial input validation
+    var modalKey ='';  
+
+    if (originInputEl.value===''){
+        modalKey="invalid-origin";
+        modalHandler(modalKey);
+    } else if(destinationInputEl.value ==='') {
+        modalKey="invalid-destination";
+        modalHandler(modalKey);
+    } else if(checkInEl.value===''||checkInEl.value.length!==10) {
+        modalKey="invalid-checkin";
+        modalHandler(modalKey);
+    } else if(checkOutEl.value===''||checkOutEl.value.length!==10){
+        modalKey="invalid-checkout";
+        modalHandler(modalKey);
+    } else {
+        convertDestinationGeoPos();
+    }
+}
+
 var convertDestinationGeoPos = function(){
     console.log('this will convert user input destination string to latitude and longitude')
-    
-    
-
+  
     var destinationInput = destinationInputEl.value.trim();
     var destinationGeoPosUrl= 'https://google-maps-geocoding.p.rapidapi.com/geocode/json?address=' + destinationInput + '&language=en'
     console.log(destinationGeoPosUrl);
+    
     
     fetch(destinationGeoPosUrl, optionsGeoPos)
         .then(function(response){
             if (response.ok){
                 response.json().then(function(data){
                     console.log(data);
-                    fetchHotelsFunction(data)
+                    console.log(data.status)
+                    if(data.results.length===0){
+                        reset();
+                        var modalKey = "no-destination"
+                        modalHandler(modalKey);
+                    } else {
+                        fetchHotelsFunction(data);
+                        console.log('else executed')
+                    }                    
                 })
             }
         })
         .catch(function(error){
-            alert("unable to connect to google maps");//switch to modal
+            console.log(error);
+            reset();
+            var modalKey = "destination-error"
+            modalHandler(modalKey);
         });
-    
-
-
 };
 
 
@@ -71,21 +102,42 @@ var fetchHotelsFunction = function(destinationGeoPos){
     console.log('this fetches list of nearby hotels by lat and lon')
     console.log(destinationGeoPos)
     
-    var checkin = checkInEl.value;
-    var checkout = checkOutEl.value;
+    var checkIn = checkInEl.value;
+    
+    checkIn = moment(checkIn).format("YYYY-MM-DD")
+    console.log(checkIn);
+    
+    var checkOut = checkOutEl.value;
+    
+    checkOut = moment(checkOut).format("YYYY-MM-DD")
+    console.log(checkOut)
+    
 
     var destinationLat = destinationGeoPos.results[0].geometry.location.lat;
     var destinationLng = destinationGeoPos.results[0].geometry.location.lng;
        
-    var hotelApiUrl = 'https://hotels-com-provider.p.rapidapi.com/v1/hotels/nearby?latitude='+destinationLat+'&currency=USD&longitude='+destinationLng+'&checkout_date='+checkout+'&sort_order=STAR_RATING_HIGHEST_FIRST&checkin_date='+checkin+'&adults_number=1&locale=en_US&guest_rating_min=4&star_rating_ids=3%2C4%2C5&children_ages=4%2C0%2C15&page_number=1&price_min=10&accommodation_ids=20%2C8%2C15%2C5%2C1&theme_ids=14%2C27%2C25&price_max=500&amenity_ids=527%2C2063'
+    var hotelApiUrl = 'https://hotels-com-provider.p.rapidapi.com/v1/hotels/nearby?latitude='+destinationLat+'&currency=USD&longitude='+destinationLng+'&checkout_date='+checkOut+'&sort_order=STAR_RATING_HIGHEST_FIRST&checkin_date='+checkIn+'&adults_number=1&locale=en_US&guest_rating_min=4&star_rating_ids=3%2C4%2C5&children_ages=4%2C0%2C15&page_number=1&price_min=10&accommodation_ids=20%2C8%2C15%2C5%2C1&theme_ids=14%2C27%2C25&price_max=500&amenity_ids=527%2C2063'
     fetch(hotelApiUrl, optionsHotel)
         .then(function(response){
-            response.json().then(function(data){
-                console.log(data);
-                hotelListHandler(data);
-            })})
-        
-        .catch(err => console.error(err));
+            if (response.ok){
+                response.json().then(function(data){
+                    console.log(data);
+                    if (data.searchResults.results.length!==0){
+                        hotelListHandler(data);
+                    } else {
+                        reset();
+                        var modalKey = "no-hotel"
+                        modalHandler(modalKey);
+                    }                   
+                })
+            }
+            })       
+        .catch(function(error){
+            console.log(error);
+            reset();
+            var modalKey = "hotel-error"
+            modalHandler(modalKey);
+        })
 
         //output data to create DOM elements and user can pick a hotel
 };
@@ -97,25 +149,17 @@ var hotelListHandler = function(hotelList){
     console.log(hotelResults);
 
     hotelContainerEl.replaceChildren();
-    if (hotelResults.length!==0){
-        for(var i = 0; i < hotelResults.length; i++){
-            console.log(hotelResults[i]);//this will list all hotels found and other properties
     
-            var hotelResultsEl = document.createElement("button")
-            hotelResultsEl.textContent= hotelResults[i].name;
-            hotelResultsEl.setAttribute("id",hotelResults[i].name);
-            hotelResultsEl.setAttribute("data-id", 'hotel-button')
-    
-            hotelContainerEl.append(hotelResultsEl)
-        }
-    } else{
-        window.alert('no hotels found');
-    }
-    
-    
-    
+    for(var i = 0; i < hotelResults.length; i++){
+        console.log(hotelResults[i]);//this will list all hotels found and other properties
 
-    
+        var hotelResultsEl = document.createElement("button")
+        hotelResultsEl.textContent= hotelResults[i].name;
+        hotelResultsEl.setAttribute("id",hotelResults[i].name);
+        hotelResultsEl.setAttribute("data-id", 'hotel-button')
+
+        hotelContainerEl.append(hotelResultsEl)
+    }    
 }
 //once user picks a hotel,identifies which hotel from hotels object was clicked
 var selectedHotel = function(event){
@@ -126,6 +170,7 @@ var selectedHotel = function(event){
     console.log(hotel.textContent)
 
     var index ='';
+
     if (event.target.getAttribute("data-id")==='hotel-button'){
         for (var i = 0; i<hotelResults.length; i++) {
             if (hotelResults[i].name === hotel.textContent){
@@ -139,10 +184,8 @@ var selectedHotel = function(event){
     
         console.log(index);
         
-    
         var hotelSelected = hotelResults[index];
     
-       
         console.log(hotelSelected);
     
         convertOriginGeoPos(hotelSelected);
@@ -168,29 +211,33 @@ var convertOriginGeoPos = function(hotel){
             if (response.ok){
                 response.json().then(function(originGeoPos){
                     console.log(originGeoPos);
-                    initTravelMap(originGeoPos,hotel);
+                    if (originGeoPos.results.length!==0){
+                        initTravelMap(originGeoPos,hotel);
+                    } else {
+                        reset();
+                        var modalKey = "no-origin"
+                        modalHandler(modalKey);
+                    }                   
                 })
             }
         })
         .catch(function(error){
-            alert("unable to connect to google maps");//switch to modal
+            console.log(error);
+            reset();
+            var modalKey = "origin-error"
+            modalHandler(modalKey);
         });
-    
-
-
 };
-//displays initial map; lets user know map is included
-function initMap (){
 
+//displays initial map; lets user know that the website will generate a map visual
+function initMap (){
     var mapOptions ={ 
         center:{lat:56.1304
             ,lng:-106.3468},
-            zoom:5}
-        const map = new google.maps.Map(document.getElementById('map'), mapOptions);
-    
-        
-
+            zoom:9}
+    const map = new google.maps.Map(document.getElementById('map'), mapOptions);
 }
+
 //generates zoomed map, draws route and displays direction steps
 var initTravelMap = function (origin,hotel){
     
@@ -237,12 +284,93 @@ function calculateAndDisplayRoute (directionsService,directionsRenderer,origin,h
     .then((response)=>{
         directionsRenderer.setDirections(response);
     })
-    .catch((e)=>window.alert("Direction request has failed"));
+    .catch(function(error){
+        console.log(error);
+        reset();
+        var modalKey = "direction-error";
+        modalHandler(modalKey);
+    });
+    
 }
 
+//--------------------------field resetter---------------------------:
+//resets elements on the page; called when error occurs
+var reset = function(){
+    originInputEl.value=''
+    destinationInputEl.value=''
+    checkInEl.value=''
+    checkOutEl.value=''
+    hotelContainerEl.replaceChildren();
+    initMap();
+    directionsPanel.replaceChildren();
+}
+
+//--------------------------modal handler----------------------------:
+//switch statement depends on modalKey; triggered by error or invalid input
+
+
+var modalHandler = function (modalKey) {
+    
+    switch (modalKey) {
+        case "invalid-origin":
+            modalTitleEl.textContent='Invalid Origin'
+            modalBodyEl.textContent='Please enter a valid origin'
+            $('#modal').modal();
+            break;
+        case "invalid-destination":
+            modalTitleEl.textContent='Invalid Destination'
+            modalBodyEl.textContent='Please enter a valid destination'
+            $('#modal').modal();
+            break;
+        case "invalid-checkin":
+            modalTitleEl.textContent='Invalid Check-In Date'
+            modalBodyEl.textContent='Please enter a valid check-in date. Please note the format (YYYY-MM-DD)'
+            $('#modal').modal();
+            break;
+        case "invalid-checkout":
+            modalTitleEl.textContent='Invalid Check-Out Date'
+            modalBodyEl.textContent='Please enter a valid check-out date. Please note the format (YYYY-MM-DD)'
+            $('#modal').modal();
+            break;
+        case "no-destination":
+            modalTitleEl.textContent='Error:'
+            modalBodyEl.textContent='Destination was not recognized'
+            $('#modal').modal();
+            break;
+        case "destination-error":
+            modalTitleEl.textContent='Error:'
+            modalBodyEl.textContent='Could not retrieve destination data'
+            $('#modal').modal();
+            break;
+        case "no-hotel":
+            modalTitleEl.textContent='Error:'
+            modalBodyEl.textContent='No nearby hotels identified'
+            $('#modal').modal();
+            break;
+        case "hotel-error":
+            modalTitleEl.textContent='Error:'
+            modalBodyEl.textContent='Could not retrieve hotel data'
+            $('#modal').modal();
+            break;
+        case "no-origin":
+            modalTitleEl.textContent='Error:'
+            modalBodyEl.textContent='Origin was not recognized'
+            $('#modal').modal();
+            break;
+        case "origin-error":
+            modalTitleEl.textContent='Error:'
+            modalBodyEl.textContent='Could not retrieve origin data'
+            $('#modal').modal();
+            break;
+        case "direction-error":
+            modalTitleEl.textContent='Error:'
+            modalBodyEl.textContent='Could not retrieve directions data'
+            $('#modal').modal();           
+    }
+}
 
 //----------------------addEventListeners-------------------------:
 
 hotelContainerEl.addEventListener("click", selectedHotel)
-fetchButtonEl.addEventListener("click",convertDestinationGeoPos);
+fetchButtonEl.addEventListener("click",inputValidation);
 
