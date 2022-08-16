@@ -24,4 +24,11 @@ header {
 #map {
     height: 700px;
     width: 500px;
+    padding-top: 10px;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+
+#fetch-btn {
+    margin-bottom: 20px;
 }
