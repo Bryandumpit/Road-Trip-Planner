@@ -32,3 +32,52 @@ header {
 #fetch-btn {
     margin-bottom: 20px;
 }
+
+@media screen and (max-width: 575px) {
+    #main-container {
+        height: auto;
+    }
+
+    .pt-3 {
+        font-size: 20px;
+    }
+
+    .title {
+        font-size: 20px;
+        padding-bottom: 0;
+    }
+
+    #origin-input {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+
+    #destination-input {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+
+    #checkin-input {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #checkout-input {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+   .select {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
