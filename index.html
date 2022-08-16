@@ -4,10 +4,101 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travel Planner</title>
-</head>
+    <title>TestEnvMod07Proj01</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    
 <body>
-    <button id="fetch-btn">fetch</button>
-    <script src="./assets/js/script.js"></script>
+    <header class="">
+        <h1>Mod 07. Project 1</h1> <!--working title will change once group decides-->
+    </header>
+    <main>
+        <!--search form-->
+        <section>
+            <div class="">
+                <h2 class="">Plan your trip</h2><!--working title-->
+                <form class="card-body" id="search-form">
+                    <h3>Coming from:</h3>
+                    <input name="origin" placeholder="origin" id="origin-input">
+                    <h3>Going to:</h3>
+                    <input name="destination" placeholder="destination" id="destination-input">
+                    <h3>Check in</h3>
+                    <input name="check-in" placeholder="check in date (yyyy-mm-dd)" id="checkin-input">
+                    <h3>Check out</h3>
+                    <input name="check-out" placeholder="checkout date (yyyy-mm-dd)" id="checkout-input">
+                </form>
+                <button id="fetch-btn">Search</button>
+              </div>
+        </section>   
+        
+        <section>
+            <!--hotel options card-->
+            <div class="" id="">
+                <h2 class="">hotel options</h2> <!--hotel options card-->
+                <div class="card-body">
+                    <ul>
+                        <!--placeholders only. we can make them hidden when css and js are done-->
+                        <p>option 1</p>
+                        <p>option 2</p>
+                        <p>option 3</p>
+                        <p>option 4</p>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!--map card-->
+        <section>
+            <div>
+                <div id="map">
+                    <p>map card will go here</p>
+                </div>
+            </div>
+
+            <!--restaurant options card if we're still doing that-->
+            <!--<div>
+                <h2 class="">restaurant options</h2>
+                <div class="card-body">
+                    <ul>
+                        <p>option 1</p>
+                        <p>option 2</p>
+                        <p>option 3</p>
+                        <p>option 4</p>
+                    </ul>
+                </div>
+            </div>-->
+        </section>
+
+        <!--directions panel card-->
+        <section>
+            <div id="directionsPanel">
+                <p>directions panel content</p><!--directions from airport to hotel chosen?-->
+            </div>
+        </section>
+
+        <!--previous searches, if we want this to be apart of the website-->
+        <section>
+            <div>
+                <div class="card">
+                    <h3>previous searches</h3>
+                    <div class="card-body">
+                        <p>previous searches content</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <h6>API's Used</h6><!--working title, will change once we decide what we want in this section-->
+    </footer> 
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfINFfuRcSYAh-2ukV1n032OjpcZUXNJw&callback=initMap"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script src="./assets/js/script.js"></script>
 </body>
 </html>
