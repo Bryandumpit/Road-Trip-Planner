@@ -9,40 +9,45 @@
     <link rel="stylesheet" href="./assets/css/style.css">
     
 <body>
+    <!--working title. can change if anyone else has other ideas-->
     <header class="">
-        <h1>Mod 07. Project 1</h1> <!--working title will change once group decides-->
+        <h1>Road Tripcierge</h1> 
+        <p>
+            A website that helps you plan your road trip with ease
+            <br>Just tell us where you headed and we will give you directions and possible hotel options for you to stay
+        </p>
     </header>
     <main>
         <!--search form-->
         <section>
             <div class="">
                 <h2 class="">Plan your trip</h2><!--working title-->
-                <form class="card-body" id="search-form">
-                    <h3>Coming from:</h3>
-                    <input name="origin" placeholder="origin" id="origin-input">
-                    <h3>Going to:</h3>
-                    <input name="destination" placeholder="destination" id="destination-input">
-                    <h3>Check in</h3>
-                    <input name="check-in" placeholder="check in date (yyyy-mm-dd)" id="checkin-input">
-                    <h3>Check out</h3>
-                    <input name="check-out" placeholder="checkout date (yyyy-mm-dd)" id="checkout-input">
+                <form id="user-input">
+                    <label for="origin-input">Origin:</label>
+                    <input name="origin" placeholder="Origin" id="origin-input">
+                    <label for="dstination-input">Destination:</label>
+                    <input name="destination" placeholder="Destination" id="destination-input">
+                    <label for="checkin-input">Check-in Date:</label>
+                    <input name="check-in" placeholder="(YYYY-MM-DD)" id="checkin-input">
+                    <label for="checkout-input">Check-out Date:</label>
+                    <input name="check-out" placeholder="(YYYY-MM-DD)" id="checkout-input">
                 </form>
                 <button id="fetch-btn">Search</button>
+                <button id="clear-btn">Clear Search</button>
               </div>
         </section>   
+
+        <!---->
+        <section>
+            <p>select hotel to see directions</p>
+        </section>
         
         <section>
             <!--hotel options card-->
-            <div class="" id="">
-                <h2 class="">hotel options</h2> <!--hotel options card-->
+            <div class="" id="hotel-results-container">
+                <h2 class="">Hotel Options</h2>
                 <div class="card-body">
-                    <ul>
-                        <!--placeholders only. we can make them hidden when css and js are done-->
-                        <p>option 1</p>
-                        <p>option 2</p>
-                        <p>option 3</p>
-                        <p>option 4</p>
-                    </ul>
+                    
                 </div>
             </div>
         </section>
@@ -51,28 +56,15 @@
         <section>
             <div>
                 <div id="map">
-                    <p>map card will go here</p>
+                
                 </div>
             </div>
-
-            <!--restaurant options card if we're still doing that-->
-            <!--<div>
-                <h2 class="">restaurant options</h2>
-                <div class="card-body">
-                    <ul>
-                        <p>option 1</p>
-                        <p>option 2</p>
-                        <p>option 3</p>
-                        <p>option 4</p>
-                    </ul>
-                </div>
-            </div>-->
         </section>
 
         <!--directions panel card-->
         <section>
             <div id="directionsPanel">
-                <p>directions panel content</p><!--directions from airport to hotel chosen?-->
+                <h2>directions panel content</h2>
             </div>
         </section>
 
@@ -80,9 +72,9 @@
         <section>
             <div>
                 <div class="card">
-                    <h3>previous searches</h3>
-                    <div class="card-body">
-                        <p>previous searches content</p>
+                    <h3>Previous Searches</h3>
+                    <div class="card-body" id="directionsPanel recall">
+                        
                     </div>
                 </div>
             </div>
@@ -91,8 +83,36 @@
     </main>
 
     <footer>
-        <h6>API's Used</h6><!--working title, will change once we decide what we want in this section-->
+        <h4>API's we used:</h4>
+        <ul>
+            <li>Google Maps Geocoding API</li>
+            <li>Google Maps Directions API</li>
+            <li>Hotels com Provides API</li>
+        </ul>
     </footer> 
+    <!--MODALS-->
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal-body"aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal-title">
+                        
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modal-body">
+                    <h2>
+                        
+                    </h2>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfINFfuRcSYAh-2ukV1n032OjpcZUXNJw&callback=initMap"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
