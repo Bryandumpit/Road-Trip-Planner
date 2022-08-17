@@ -5,40 +5,59 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TestEnvMod07Proj01</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
     
 </head>
 <body>
     <header>
-
+        <h1 class="title is-1">Hotel Planner</h1>
     </header>
     <main>
-        <section>
-            <form id="user-input">
-                <input name="origin" placeholder="origin" id="origin-input">
-                <input name="destination" placeholder="destination" id="destination-input">
-                <input name="check-in" placeholder="check in date (yyyy-mm-dd)" id="checkin-input">
-                <input name="check-out" placeholder="checkout date (yyyy-mm-dd)" id="checkout-input">
+        <section class="col hero is-medium is-primary is-flex-direction-row is-flex-wrap-wrap is-justify-content-center is-align-items-center" id="main-container">
+            <form class="is-flex is-flex-direction-column" id="user-input">
+                <h3 class="title pt-3">Where are you going to and from?</h3>
+                <div class="field is-flex is-flex-direction-row is-justify-content-center is-flex-wrap-wrap is-align-items-center">
+                    <input class="input is-medium" type="text" name="origin" placeholder="Origin" id="origin-input">
+                    <input class="input is-medium" type="text" name="destination" placeholder="Destination"
+                        id="destination-input">
+                </div>
+                
+                <h3 class="title pt-3">When are you going?</h3>
+                <div class="field is-flex is-flex-direction-row is-justify-content-center is-flex-wrap-wrap is-align-items-center">
+                    <!-- add date picker if possible -->
+                    <input class="input is-medium is-flex is-flex-direction-row is-justify-content-center is-flex-wrap-wrap is-align-items-center" 
+                    name="check-in" placeholder="Check In (YYYY-MM-DD)" id="checkin-input">
+                    <input class="input is-medium is-flex is-flex-direction-row is-justify-content-center is-flex-wrap-wrap is-align-items-center" 
+                    name="check-out" placeholder="Check Out (YYYY-MM-DD)" id="checkout-input">
+                </div>
+
             </form>
-            <button id="fetch-btn">fetch</button>
+
+                <!-- <div class="is-flex is-flex-direction-row is-justify-content-center">     -->
+                    <button class="button is-medium" id="fetch-btn">Search</button>
+                <!-- </div> -->
+
+            
         </section>
+
         <section>
-            <div id="hotel-results-container">
+            <div class="card is-hidden" id="hotel-results-container">
 
             </div>
-            <div id="map">
+            <div class="map is-hidden" id="map">
 
             </div>
-            <div id="directionsPanel">
+            <div class="field is-flex is-flex-direction-row is-justify-content-center is-flex-wrap-wrap is-align-items-center" id="directionsPanel">
 
             </div>
             
         </section>
         <section>
             <div id="recall">
-
             </div>
+            
         </section>
         
 

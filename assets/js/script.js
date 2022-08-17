@@ -39,6 +39,10 @@ var modalTitleEl = document.querySelector("#modal-title")
 var modalBodyEl = document.querySelector("#modal-body")
 
 var recallContainerEl = document.querySelector('#recall')
+// var recallHotelContainer = document.querySelector("#recall-hotel-container")
+
+// add var map
+var mapEl = document.querySelector('#map');
 
 var userInput=[]
 
@@ -49,6 +53,7 @@ var userInput=[]
 var inputValidation = function (){
     //initial input validation
     var modalKey =''; 
+
     
     userInput.length=0;//resets userInput array on each search so data from previous search is not carried over
 
@@ -234,6 +239,10 @@ var hotelListHandler = function(hotelList,userInput){
     console.log(hotelResults);
 
     hotelContainerEl.replaceChildren();
+
+    // removes hidden container for hotels
+    hotelContainerEl.classList.remove('is-hidden')
+    hotelContainerEl.classList = ('card m-3 is-align-items-center is-flex is-justify-content-center')
     
     for(var i = 0; i < hotelResults.length; i++){
         console.log(hotelResults[i]);//this will list all hotels found and other properties
@@ -242,6 +251,8 @@ var hotelListHandler = function(hotelList,userInput){
         hotelResultsEl.textContent= hotelResults[i].name;
         hotelResultsEl.setAttribute("id",hotelResults[i].name);
         hotelResultsEl.setAttribute("data-id", 'hotel-button')
+        // add css attribute to hotels
+        hotelResultsEl.setAttribute("class", "button is-text")
 
         hotelContainerEl.append(hotelResultsEl)
     }    
@@ -254,6 +265,9 @@ var selectedHotel = function(event){
     console.log(hotelResults);//data captured from hotelListHandler function
     console.log('this will fetch from directions api')
     console.log(hotel.textContent)
+
+    // remove css style "is-hidden" to display map when a hotel is clicked
+    mapEl.classList.remove('is-hidden');
 
     var index ='';
     //makes sure the subsequent tasks only happen if the click was on the button not the div container
@@ -370,6 +384,7 @@ var calculateAndDisplayRoute = function (directionsService,directionsRenderer,or
     storedTrip.push(userInput);
     storedTrip.push(hotel);
     saveTrip(storedTrip)    
+
 }
 //creates buttons for previous searches; enables user to recall previous trips searched in the same session
 var recallHandler =function(userInput, hotelSelected){
@@ -379,6 +394,12 @@ var recallHandler =function(userInput, hotelSelected){
     recallButton.setAttribute("id", recallString)
     recallContainerEl.append(recallButton)
     console.log('recallHandler called')
+
+    // add attributes to recall container
+    recallContainerEl.classList.remove('is-hidden');
+    recallContainerEl.classList = ('card m-3 has-background-primary-light is-align-items-center is-flex is-justify-content-center');
+    // recallContainerEl.classList.remove('is-hidden')
+    recallButton.setAttribute('class', 'button is-text');
 }
 //sends data package to localStorage for later recall
 var saveTrip = function(storedTrip) {
