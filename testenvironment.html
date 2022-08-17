@@ -15,7 +15,7 @@
         <h1 class="title is-1">Hotel Planner</h1>
     </header>
     <main>
-        <section class="col hero is-medium is-primary is-flex-direction-row is-flex-wrap-wrap is-justify-content-center is-align-items-center" id="main-container">
+        <section class="hero is-medium is-primary is-flex-direction-row is-flex-wrap-wrap is-justify-content-center is-align-items-center" id="main-container">
             <form class="is-flex is-flex-direction-column" id="user-input">
                 <h3 class="title pt-3">Where are you going to and from?</h3>
                 <div class="field is-flex is-flex-direction-row is-justify-content-center is-flex-wrap-wrap is-align-items-center">
@@ -28,16 +28,18 @@
                 <div class="field is-flex is-flex-direction-row is-justify-content-center is-flex-wrap-wrap is-align-items-center">
                     <!-- add date picker if possible -->
                     <input class="input is-medium is-flex is-flex-direction-row is-justify-content-center is-flex-wrap-wrap is-align-items-center" 
-                    name="check-in" placeholder="Check In (YYYY-MM-DD)" id="checkin-input">
+                    name="check-in" type="text" placeholder="Check In (YYYY-MM-DD)" id="checkin-input">
                     <input class="input is-medium is-flex is-flex-direction-row is-justify-content-center is-flex-wrap-wrap is-align-items-center" 
-                    name="check-out" placeholder="Check Out (YYYY-MM-DD)" id="checkout-input">
+                    name="check-out" type="text" placeholder="Check Out (YYYY-MM-DD)" id="checkout-input">
                 </div>
 
             </form>
 
-                <!-- <div class="is-flex is-flex-direction-row is-justify-content-center">     -->
-                    <button class="button is-medium" id="fetch-btn">Search</button>
-                <!-- </div> -->
+            <div class="container is-align-items-center">
+
+               <button class="button is-medium" id="fetch-btn">Search</button>
+            </div>
+            </div>
 
             
         </section>
@@ -46,8 +48,10 @@
             <div class="card is-hidden" id="hotel-results-container">
 
             </div>
-            <div class="map is-hidden" id="map">
 
+            <div class="card is-hidden m-3 is-flex is-justify-content-center  " id="move-map">
+            <div class="map is-hidden" id="map">
+            </div>
             </div>
             <div class="field is-flex is-flex-direction-row is-justify-content-center is-flex-wrap-wrap is-align-items-center" id="directionsPanel">
 
@@ -57,8 +61,6 @@
         <section>
             <div id="recall">
             </div>
-            
-        </section>
         
 
     </main>
@@ -96,6 +98,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="./assets/js/script.js"></script>
 </body>
 </html>

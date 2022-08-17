@@ -41,8 +41,15 @@ header {
     position: relative;
 }
 
+#move-map {
+    align-items: center;
+    padding-bottom: 20px;
+}
+
 #fetch-btn {
+    margin-top: 10px;
     margin-bottom: 20px;
+    margin-left: 410px;
 }
 
 /* #checkin-input #checkout-input,

@@ -44,6 +44,8 @@ var recallContainerEl = document.querySelector('#recall')
 // add var map
 var mapEl = document.querySelector('#map');
 
+var moveMap=document.querySelector('#move-map');
+
 var userInput=[]
 
 
@@ -267,6 +269,7 @@ var selectedHotel = function(event){
     console.log(hotel.textContent)
 
     // remove css style "is-hidden" to display map when a hotel is clicked
+    moveMap.classList.remove('is-hidden');
     mapEl.classList.remove('is-hidden');
 
     var index ='';
