@@ -11,6 +11,12 @@ header {
     margin-top: 5px;
 }
 
+.hero {
+    background-image: url("../images/hero-banner.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
 .hero .input,
 .select {
     width: auto;
