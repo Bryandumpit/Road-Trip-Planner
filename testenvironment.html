@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TestEnvMod07Proj01</title>
+    <title>Road Tripcierge</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
@@ -12,21 +12,25 @@
 </head>
 <body>
     <header>
-        <h1 class="title is-1">Hotel Planner</h1>
+        <h1 class="title is-1">Road Tripcierge</h1>
+        <p>
+            A website that you plan your road trip with ease. <br>
+            Just tell us where you're headed and we will give you hotel options for you to stay and directions to get there.
+        </p>
     </header>
     <main>
         <section class="hero is-medium is-primary is-flex-direction-row is-flex-wrap-wrap is-justify-content-center is-align-items-center" id="main-container">
             <form class="is-flex is-flex-direction-column" id="user-input">
-                <h3 class="title pt-3">Where are you going to and from?</h3>
+                <h3 class="title pt-3">Plan your trip</h3>
                 <div class="field is-flex is-flex-direction-row is-justify-content-center is-flex-wrap-wrap is-align-items-center">
                     <input class="input is-medium" type="text" name="origin" placeholder="Origin" id="origin-input">
                     <input class="input is-medium" type="text" name="destination" placeholder="Destination"
                         id="destination-input">
                 </div>
                 
-                <h3 class="title pt-3">When are you going?</h3>
+                <h3 class="title pt-3">When do you want to go?</h3>
                 <div class="field is-flex is-flex-direction-row is-justify-content-center is-flex-wrap-wrap is-align-items-center">
-                    <!-- add date picker if possible -->
+                    
                     <input class="input is-medium is-flex is-flex-direction-row is-justify-content-center is-flex-wrap-wrap is-align-items-center" 
                     name="check-in" type="text" placeholder="Check In (YYYY-MM-DD)" id="checkin-input">
                     <input class="input is-medium is-flex is-flex-direction-row is-justify-content-center is-flex-wrap-wrap is-align-items-center" 
@@ -36,36 +40,45 @@
             </form>
 
             <div class="container is-align-items-center">
-
                <button class="button is-medium" id="fetch-btn">Search</button>
             </div>
-            </div>
+        </section>
 
-            
+        <section>
+            <p>Select a hotel from the search results to view the directions on the map below.</p>
         </section>
 
         <section>
             <div class="card is-hidden" id="hotel-results-container">
-
+                <h2 class="">Hotel Options</h2>
             </div>
 
-            <div class="card is-hidden m-3 is-flex is-justify-content-center  " id="move-map">
-            <div class="map is-hidden" id="map">
-            </div>
+            <div class="card is-hidden m-3 is-flex is-justify-content-center" id="move-map">
+                <div class="map is-hidden" id="map">
+
+                </div>
             </div>
             <div class="field is-flex is-flex-direction-row is-justify-content-center is-flex-wrap-wrap is-align-items-center" id="directionsPanel">
-
-            </div>
-            
+                
+            </div>    
         </section>
-        <section>
-            <div id="recall">
-            </div>
         
-
+        <section>
+            <div class="card">
+                <h3 class="card-title">Previous Searches</h3>
+                <div class="card-body" id="recall">
+                    
+                </div>
+            </div>
+        </section>
     </main>
     <footer>
-
+        <h4>API's we used:</h4>
+        <ul>
+            <li>Google Maps Geocoding API</li>
+            <li>Google Maps Directions API</li>
+            <li>Hotels com Provides API</li>
+        </ul>
     </footer> 
     <!--MODALS-->
     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal-body"aria-hidden="true">
@@ -98,8 +111,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    
+  
     <script src="./assets/js/script.js"></script>
 </body>
 </html>
