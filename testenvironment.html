@@ -1,46 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Road Tripcierge</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
-    
+
 </head>
+
 <body>
     <header>
         <h1 class="title is-1">Road Tripcierge</h1>
         <p>
             A website that you plan your road trip with ease. <br>
-            Just tell us where you're headed and we will give you hotel options for you to stay and directions to get there.
+            Just tell us where you're headed and we will give you hotel options for you to stay and directions to get
+            there.
         </p>
     </header>
     <main>
-        <section class="hero is-medium is-primary is-flex-direction-row is-flex-wrap-wrap is-justify-content-center is-align-items-center" id="main-container">
-            <form class="is-flex is-flex-direction-column" id="user-input">
+        <section
+            class="hero is-medium is-primary is-flex-direction-column is-flex-wrap-wrap is-justify-content-center is-align-items-center"
+            id="main-container">
+            <form class="is-flex is-flex-direction-column " id="user-input">
                 <h3 class="title pt-3">Plan your trip</h3>
-                <div class="field is-flex is-flex-direction-row is-justify-content-center is-flex-wrap-wrap is-align-items-center">
+                <div
+                    class="field is-flex is-flex-direction-row is-justify-content-center is-flex-wrap-wrap is-align-items-center">
                     <input class="input is-medium" type="text" name="origin" placeholder="Origin" id="origin-input">
                     <input class="input is-medium" type="text" name="destination" placeholder="Destination"
                         id="destination-input">
                 </div>
-                
+
                 <h3 class="title pt-3">When do you want to go?</h3>
-                <div class="field is-flex is-flex-direction-row is-justify-content-center is-flex-wrap-wrap is-align-items-center">
-                    
-                    <input class="input is-medium is-flex is-flex-direction-row is-justify-content-center is-flex-wrap-wrap is-align-items-center" 
-                    name="check-in" type="text" placeholder="Check In (YYYY-MM-DD)" id="checkin-input">
-                    <input class="input is-medium is-flex is-flex-direction-row is-justify-content-center is-flex-wrap-wrap is-align-items-center" 
-                    name="check-out" type="text" placeholder="Check Out (YYYY-MM-DD)" id="checkout-input">
+                <div
+                    class="field is-flex is-flex-direction-row is-justify-content-center is-flex-wrap-wrap is-align-items-center">
+
+                    <input
+                        class="input is-medium is-flex is-flex-direction-row is-justify-content-center is-flex-wrap-wrap is-align-items-center"
+                        name="check-in" type="text" placeholder="Check In (YYYY-MM-DD)" id="checkin-input">
+                    <input
+                        class="input is-medium is-flex is-flex-direction-row is-justify-content-center is-flex-wrap-wrap is-align-items-center"
+                        name="check-out" type="text" placeholder="Check Out (YYYY-MM-DD)" id="checkout-input">
                 </div>
 
             </form>
 
-            <div class="container is-align-items-center">
-               <button class="button is-medium" id="fetch-btn">Search</button>
+            <div class="is-flex is-flex-wrap-wrap is-justify-content-center">
+                <button class="button is-medium" id="fetch-btn">Search</button>
             </div>
         </section>
 
@@ -58,16 +66,17 @@
 
                 </div>
             </div>
-            <div class="field is-flex is-flex-direction-row is-justify-content-center is-flex-wrap-wrap is-align-items-center" id="directionsPanel">
-                
-            </div>    
+            <div class="field is-flex is-flex-direction-row is-justify-content-center is-flex-wrap-wrap is-align-items-center"
+                id="directionsPanel">
+
+            </div>
         </section>
-        
+
         <section>
             <div class="card">
                 <h3 class="card-title">Previous Searches</h3>
                 <div class="card-body" id="recall">
-                    
+
                 </div>
             </div>
         </section>
@@ -79,40 +88,37 @@
             <li>Google Maps Directions API</li>
             <li>Hotels com Provides API</li>
         </ul>
-    </footer> 
-    <!--MODALS-->
-    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal-body"aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modal-title">
-                        
-                    </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="modal-body">
-                    <h2>
-                        
-                    </h2>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
-                </div>
-            </div>
+    </footer>
+
+    <div class="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <h5 class="modal-title" id="modal-title">
+
+                </h5>
+            </header>
+            <section class="modal-card-body">
+                <!-- Content ... -->
+                <h2 id="modal-body">
+
+                </h2>
+            </section>
+            <footer class="modal-card-foot">
+                <button type="button" class="button" id="ok-btn">OK</button>
+            </footer>
         </div>
     </div>
-    
+
     <script defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfINFfuRcSYAh-2ukV1n032OjpcZUXNJw&callback=initMap">
-    </script>
+        </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.15.0/umd/popper.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    
-  
+
+
     <script src="./assets/js/script.js"></script>
 </body>
+
 </html>

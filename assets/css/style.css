@@ -1,6 +1,6 @@
-#map{
-    height:700px;
-    width:500px;
+#map {
+    height: 700px;
+    width: 500px;
 }
 
 header {
@@ -49,7 +49,6 @@ header {
 #fetch-btn {
     margin-top: 10px;
     margin-bottom: 20px;
-    margin-left: 410px;
 }
 
 /* #checkin-input #checkout-input,
@@ -57,12 +56,11 @@ header {
     font: 15px/3 sans-serif;
 } */
 
-input::placeholder
-{
-font-size:15px;
-height:30px;
-width:100%;
-text-indent:5px;
+input::placeholder {
+    font-size: 15px;
+    height: 30px;
+    width: 100%;
+    text-indent: 5px;
 }
 
 /* #data-id {
