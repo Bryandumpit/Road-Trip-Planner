@@ -3,21 +3,35 @@
     width: 500px;
 }
 
-header {
-    margin-bottom: 5px;
+.heading {
+    background-color: #abd6b6;
+    margin-bottom: 0;
 }
 
 .title {
     text-align: center;
 }
 
+.form {
+    padding-top: 0;
+}
+
 /* HERO STYLES BEGIN*/
-.hero div {
-    margin-top: 5px;
+.hero-head {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #1f1e1e;
+}
+
+
+.hero.is-primary,
+
+.hero.is-primary .title,
+.hero.is-primary .label {
+    color: #1f1e1e;
 }
 
 .hero {
-    /* background-image: url("../images/hero-banner.jpg"); */
+    background-image: url("../images/hero-banner.jpg");
     background-position: center;
     background-size: cover;
 }
@@ -69,6 +83,17 @@ input::placeholder {
     justify-content: space-between;
     align-content: center;
 } */
+
+/* FOOTER STYLES*/
+
+footer {
+    color: #1f1e1e;
+    background-color: #abd6b6;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+}
 
 @media screen and (max-width: 575px) {
     #main-container {
