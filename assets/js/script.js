@@ -56,12 +56,15 @@ var userInput = []
 
 //-----------------DEFINE FUNCTIONS----------------------:
 //this function is called after pressing Search button and validates value of each input
-var inputValidation = function () {
+var inputValidation = function (event) {
+    
+    console.log('what')
+    
     //initial input validation
     var modalKey = '';
+    console.log('where')
 
-
-    userInput.length = 0;//resets userInput array on each search so data from previous search is not carried over
+    
 
     if (originInputEl.value === '') {
         modalKey = "invalid-origin";
@@ -88,10 +91,11 @@ var dateHandler = function () {
     console.log(dateInput);
 
     var checkIn = checkInEl.value;
+    console.log(checkIn)
 
     checkIn = moment(checkIn).format("YYYY-MM-DD");
-    var checkInIdentifier = { identifier: 'checkin' };
-    var checkInObj = { date: checkIn };
+    var checkInIdentifier = {identifier:'checkin'};
+    var checkInObj = {date: checkIn};
     var checkInData = Object.assign(checkInObj, checkInIdentifier);
     console.log(checkInData);
     dateInput.push(checkInData);
@@ -99,8 +103,8 @@ var dateHandler = function () {
     var checkOut = checkOutEl.value;
 
     checkOut = moment(checkOut).format("YYYY-MM-DD")
-    var checkOutIdentifier = { identifier: 'checkout' };
-    var checkOutObj = { date: checkOut };
+    var checkOutIdentifier = {identifier:'checkout'};
+    var checkOutObj = {date:checkOut};
     var checkOutData = Object.assign(checkOutObj, checkOutIdentifier);
     console.log(checkOutData);
     dateInput.push(checkOutData);
