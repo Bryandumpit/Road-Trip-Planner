@@ -1,4 +1,4 @@
-# Project 1: Name TBD
+# Project 1: Road Tripcierge
 
 ## About this application
 
@@ -14,7 +14,7 @@ As a user, I want a website where I can input my travel dates, and destination t
 
 ## The Journey
 
-![First draft of wireframe sketch](./Screenshots/Wireframe-Sketch.png)
+![First draft of wireframe sketch](./Screenshots/Road%20Tripcierge.PNG)
 Website URL: https://bryandumpit.github.io/Road-Tripcierge/
 
 ## Made with
