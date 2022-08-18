@@ -59,6 +59,8 @@ var userInput = []
 var inputValidation = function (event) {
     
     console.log('what')
+
+    userInput.length=0;
     
     //initial input validation
     var modalKey = '';
